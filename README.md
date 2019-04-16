@@ -1,6 +1,6 @@
 # GlaDOS-System
 
-Undergraduate Project  
+This is an undergraduate project.
 
 <b>University</b>: Universidade Federal do Rio de Janeiro  
 <b>Department</b>: Departamento de Engenharia Eletrônica e de Computação da Escola Politécnica  
