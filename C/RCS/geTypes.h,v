@@ -1,0 +1,58 @@
+head	1.1;
+access;
+symbols;
+locks
+	vitor.schoola:1.1; strict;
+comment	@ * @;
+
+
+1.1
+date	2015.01.10.19.16.11;	author vitor.schoola;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/*Escola Politecnica
+ * Departamento de Eletronica e de Computacao
+ * EEL270 - Computacao II - Turma: 2014/2
+ * Prof. Marcelo Luiz Drumond Lanza
+ * Autor: Vitor Gouveia Schoola
+ * $Author$
+ * $Date$
+ * $Log$
+ *
+ */
+
+#ifndef _GETYPES_
+#define _GETYPES_              "@@(#)geTypes.h $Revision$"
+
+#include "geConst.h"
+
+typedef enum { english, portuguese } languageType;
+
+typedef unsigned long long geUserIdentifierType;
+
+typedef unsigned char geGroupType;
+
+typedef struct estructureGeUserDataType
+{
+	geUserIdentifierType 			userIdentifier;
+	char 							email[NICKNAME_MAX_LENGTH];
+	char 							password[PASSWORD_MAX_LENGTH];
+	geGroupType 					group;
+	char							name[NAME_MAX_LENGTH];
+} geUserDataType;
+
+#endif
+
+/* $RCSfile$ */
+@

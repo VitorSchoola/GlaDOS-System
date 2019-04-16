@@ -1,0 +1,705 @@
+/*Escola Politecnica
+ * Departamento de Eletronica e de Computacao
+ * EEL270 - Computacao II - Turma: 2014/2
+ * Prof. Marcelo Luiz Drumond Lanza
+ * Autor: Vitor Gouveia Schoola
+ * $Author: vitor.schoola $
+ * $Date: 2015/01/11 05:16:55 $
+ * $Log: geFunctions.c,v $
+ * Revision 1.9  2015/01/11 05:16:55  vitor.schoola
+ * *** empty log message ***
+ *
+ * Revision 1.7  2015/01/11 02:59:49  vitor.schoola
+ * *** empty log message ***
+ *
+ * Revision 1.4  2015/01/11 00:38:21  vitor.schoola
+ * *** empty log message ***
+ *
+ * Revision 1.3  2015/01/10 22:01:24  vitor.schoola
+ * *** empty log message ***
+ *
+ * Revision 1.2  2015/01/10 21:08:47  vitor.schoola
+ * *** empty log message ***
+ *
+ * Revision 1.1  2015/01/10 19:16:40  vitor.schoola
+ * Initial revision
+ *
+ *
+ */
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+
+#include "mlcgi.h"
+#include "sendmail.h"
+#include "geFunctions.h"
+#include "geTypes.h"
+#include "geConst.h"
+#include "geCrypt.h"
+#include "geError.h"
+
+languageType HandleLanguage ( char *language )
+{
+	if ( strcmp ( language, "english" ) == 0 )
+		return 0;
+	if ( strcmp ( language, "portuguese" ) == 0 )
+		return 1;
+	return 0;
+}
+
+unsigned CriarStringAleatoria ( char *caracteresValidos, unsigned comprimento, char *stringCriada ) 
+{
+	int contador                                                                                ;
+	srand ( time ( NULL ) )                                                                     ;
+	for ( contador = 0; contador < comprimento; contador++ )
+	{
+		stringCriada[contador] = caracteresValidos[ rand() % strlen (caracteresValidos) ]       ;
+	}
+	stringCriada [contador] = '\0'                                                              ;
+	return OK                                                                                    ;
+}
+
+unsigned isUserRegistered ( char *geNickname )
+{
+	unsigned found = 0;
+	FILE *reading;
+	unsigned counter, counter2;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( ( reading = fopen ( "../Files/users", "r" ) ) == NULL )
+		return 2;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 1; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	fclose ( reading );
+	return found;
+}
+
+unsigned isUserRegisteredToCLI ( char *geNickname )
+{
+	unsigned found = 0;
+	FILE *reading;
+	unsigned counter, counter2;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( ( reading = fopen ( "Files/users", "r" ) ) == NULL )
+		return 2;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 1; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	fclose ( reading );
+	return found;
+}
+
+long long unsigned getNextId ( )
+{
+	long long unsigned id;
+	char *verificacao;
+	FILE *reading;
+	char linha [ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( fileExists ( "../Files/", "users" ) == 0 )
+		return 0;
+	if ( ( reading = fopen ( "../Files/users", "r" ) ) == NULL )
+		return 0;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+	}
+	linha[ID_LENGTH] = '\0';
+	id = strtoull ( linha, &verificacao, 10 );
+	fclose ( reading );
+	return id + 1;
+}
+
+long long unsigned getNextIdToCLI ( )
+{
+	long long unsigned id;
+	char *verificacao;
+	FILE *reading;
+	char linha [ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( fileExists ( "Files/", "users" ) == 0 )
+		return 0;
+	if ( ( reading = fopen ( "Files/users", "r" ) ) == NULL )
+		return 0;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+	}
+	linha[ID_LENGTH] = '\0';
+	id = strtoull ( linha, &verificacao, 10 );
+	fclose ( reading );
+	return id + 1;
+}
+
+unsigned CheckPasswordByNick ( char *geNickname, char *gePassword )
+{
+	FILE *reading;
+	unsigned found = 0;
+	unsigned counter, counter2, counter3;
+	char *password;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( ( reading = fopen ( "../Files/users", "r" ) ) == NULL )
+		return 2;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 1; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		for ( counter3 = counter2 + 1; counter3 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + 1; counter3++ )
+			if ( linha[counter3] == ';' )
+			{
+					linha[counter3] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	fclose ( reading );
+	if ( found == 1 )
+	{
+		password = &linha[counter2 + 1];
+		if ( linha[counter2 + 1] == '\0' )
+			return 3;
+		if ( ( password[strlen(password) - 1] == '\n' ) || ( password[strlen(password) - 1] == ' ' ) )
+			password[strlen(password) - 1] = '\0';
+		if ( CheckPassword ( gePassword, password ) == 0 )
+			return 0;
+	}
+	return 1;
+}
+
+unsigned CheckPasswordByNickToCLI ( char *geNickname, char *gePassword )
+{
+	FILE *reading;
+	unsigned found = 0;
+	unsigned counter, counter2, counter3;
+	char *password;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6];
+	if ( ( reading = fopen ( "Files/users", "r" ) ) == NULL )
+		return 2;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 1; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		for ( counter3 = counter2 + 1; counter3 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + 1; counter3++ )
+			if ( linha[counter3] == ';' )
+			{
+					linha[counter3] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	fclose ( reading );
+	if ( found == 1 )
+	{
+		password = &linha[counter2 + 1];
+		if ( linha[counter2 + 1] == '\0' )
+			return 3;
+		if ( ( password[strlen(password) - 1] == '\n' ) || ( password[strlen(password) - 1] == ' ' ) )
+			password[strlen(password) - 1] = '\0';
+		if ( CheckPassword ( gePassword, password ) == 0 )
+			return 0;
+	}
+	return 1;
+}
+
+unsigned long long CheckUserInfo ( char *geNickname, geUserDataType *user )
+{
+	FILE *reading;
+	unsigned counter, counter2, counter3, counter4, counter5, counter6;
+	unsigned found = 0;
+	char *verificacao;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 7];
+	if ( ( reading = fopen ( "../Files/users", "r" ) ) == NULL )
+		return 1;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 2; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	for ( counter3 = counter2 + 1; counter3 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + 3; counter3++ )
+		if ( linha[counter3] == ';' )
+		{
+				linha[counter3] = '\0';
+				break;
+		}
+	counter4 = counter3 + 2;
+	linha[counter4] = '\0';
+	for ( counter5 = counter4 + 1; counter5 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 5; counter5++ )
+		if ( linha[counter5] == ';' )
+		{
+				linha[counter5] = '\0';
+				break;
+		}
+	fclose ( reading );
+	/*-----------------*/
+	
+	(*user).userIdentifier = strtoull ( linha, &verificacao, 10 );
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter + 1] ); counter6++ )
+		(*user).email[counter6] = linha[counter + counter6 + 1];
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter2 + 1] ) ; counter6++ )
+	{
+		(*user).password[counter6] = linha[counter2 + counter6 + 1];
+	}
+	(*user).group = linha[counter3 + 1] - '0';
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter4 + 1] ); counter6++ )
+	{
+		(*user).name[counter6] = linha[counter4 + counter6 + 1];
+	}
+	//printf ( "|%llu|", user->userIdentifier );
+	//printf ( "|%s||%s||%c|%s|<br>\n", (*user).email, (*user).password, (*user).group + '0',(*user).name );
+	return OK;
+}
+
+unsigned long long CheckUserInfoToCLI ( char *geNickname, geUserDataType *user )
+{
+	FILE *reading;
+	unsigned counter, counter2, counter3, counter4, counter5, counter6;
+	unsigned found = 0;
+	char *verificacao;
+	char linha[ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 7];
+	if ( ( reading = fopen ( "Files/users", "r" ) ) == NULL )
+		return 1;
+	while ( fgets ( linha, ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 6, reading) != NULL )
+	{
+		for ( counter = 0; counter <= ID_LENGTH + 1; counter++ )
+			if ( linha[counter] == ';' )
+			{
+				linha[counter] = '\0';
+				break;
+			}
+		for ( counter2 = counter + 1; counter2 <= ID_LENGTH + NICKNAME_MAX_LENGTH + 2; counter2++ )
+			if ( linha[counter2] == ';' )
+			{
+					linha[counter2] = '\0';
+					break;
+			}
+		if ( strcmp ( geNickname, &linha[counter + 1] ) == 0 )
+		{
+			found = 1;
+			break;
+		}
+	}
+	for ( counter3 = counter2 + 1; counter3 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + 3; counter3++ )
+		if ( linha[counter3] == ';' )
+		{
+				linha[counter3] = '\0';
+				break;
+		}
+	counter4 = counter3 + 2;
+	linha[counter4] = '\0';
+	for ( counter5 = counter4 + 1; counter5 <= ID_LENGTH + NICKNAME_MAX_LENGTH + PASSWORD_MAX_LENGTH + GROUP_LENGTH + NAME_MAX_LENGTH + 5; counter5++ )
+		if ( linha[counter5] == ';' )
+		{
+				linha[counter5] = '\0';
+				break;
+		}
+	fclose ( reading );
+	/*-----------------*/
+	
+	(*user).userIdentifier = strtoull ( linha, &verificacao, 10 );
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter + 1] ); counter6++ )
+		(*user).email[counter6] = linha[counter + counter6 + 1];
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter2 + 1] ) ; counter6++ )
+	{
+		(*user).password[counter6] = linha[counter2 + counter6 + 1];
+	}
+	(*user).group = linha[counter3 + 1] - '0';
+	for ( counter6 = 0; counter6 <= strlen ( &linha[counter4 + 1] ); counter6++ )
+	{
+		(*user).name[counter6] = linha[counter4 + counter6 + 1];
+	}
+	//printf ( "|%llu|", user->userIdentifier );
+	//printf ( "|%s||%s||%c|%s|<br>\n", (*user).email, (*user).password, (*user).group + '0',(*user).name );
+	return OK;
+}
+
+unsigned readCookie ( char *path, char *name, char *valueCookie, char *ipUser, time_t *tempo )
+{
+	FILE *reading;
+	time_t time;
+	unsigned counter;
+	char value[500];
+	char ip[500];
+	char fullPath[strlen(path) + strlen(name) + 1];
+	for ( counter = 0; counter < strlen(path) + strlen(name) + 1; counter++ )
+		fullPath[counter] = '\0';
+	strcat ( fullPath, path );
+	strcat ( fullPath, name );
+	if ( ( reading = fopen ( fullPath, "rb" ) ) == NULL )
+	{
+	    return 1;
+	}
+	fread ( &time, sizeof ( time ), 1, reading );
+	for ( counter = 0; counter < 500; counter++ )
+	{
+		if ( fread ( &value[counter], 1, 1, reading ) != 1 )
+		    break;
+		if ( value[counter] == '\0' )
+			break;
+	}
+	for ( counter = 0; counter < 500; counter++ )
+	{
+		if ( fread ( &ip[counter], 1, 1, reading ) != 1 )
+		    break;
+		if ( ip[counter] == '\0' )
+			break;
+	}
+	if ( tempo != NULL )
+	{
+		fread ( &time, sizeof ( time_t ), 1, reading );
+		*tempo = time;
+	}
+	fclose ( reading );
+	//printf ( "<br>Time:|%d|<br>Value:|%s|<br>Ip:|%s|<br>", time, value, ip );
+	for ( counter = 0; counter < strlen ( value ); counter++ )
+		valueCookie[counter] = value[counter];
+	valueCookie[counter] = '\0';
+	for ( counter = 0; counter < strlen ( ip ); counter++ )
+		ipUser[counter] = ip[counter];
+	ipUser[counter] = '\0';	
+	return OK;
+}
+
+unsigned writeCookie ( char *path, char *name, char *cookieValue, char *ipString, unsigned minutes )
+{
+	time_t tempo;
+	unsigned counter;
+	FILE *writing;
+	char fullPath[strlen(path) + strlen(name) + 1];
+	tempo = time ( NULL );
+	tempo += minutes * 60;
+	for ( counter = 0; counter < strlen(path) + strlen(name) + 1; counter++ )
+		fullPath[counter] = '\0';
+	strcat ( fullPath, path );
+	strcat ( fullPath, name );
+	if ( ( writing = fopen ( fullPath, "ab" ) ) == NULL )
+	{
+	    return 1;
+	}
+	fwrite ( &tempo, sizeof ( time_t ), 1, writing );
+	fclose ( writing );
+	return OK;
+}
+
+unsigned fileExists ( char *path, char *name )
+{
+	FILE *fileVar;
+	unsigned counter;
+	char fullPath[strlen(path) + strlen(name) + 1];
+	for ( counter = 0; counter < strlen(path) + strlen(name) + 1; counter++ )
+		fullPath[counter] = '\0';
+	strcat ( fullPath, path );
+	strcat ( fullPath, name );
+	if ( ( fileVar = fopen ( fullPath, "r" ) ) )
+	{
+		fclose ( fileVar );
+		return 1;
+	}
+	return 0;
+}
+
+unsigned createButton ( char *nameButton, char *executedCgi, char *geLanguage, char *geNickname, char *counter )
+{
+	printf ("<form action=\"%s\" method=\"post\"> \n", executedCgi );
+	printf ("  <input type='hidden' name='geLanguage' value='%s'>\n", geLanguage );
+	printf ("  <input type='hidden' name='nickname' value='%s'>\n", geNickname );	
+	
+	printf ("  <p id=\"hiddenInputCookie%s\"></p> \n", counter );
+	printf ("  <script> \n");
+	printf ("  document.getElementById(\"hiddenInputCookie%s\").innerHTML = checkCookie(); \n", counter );
+	printf ("  </script> \n");
+	
+	printf ("  <input type=\"submit\" name=\"submit\" value=\"%s\"> \n", nameButton );
+	printf (" </form> \n" );
+	return OK;
+}
+
+unsigned checkCookieAndIp ( char idString[21], char cookieValueNew[COOKIE_LENGTH + 1], languageType language )
+{
+	char cookieValue[COOKIE_LENGTH + 1];
+	char ipString [IP_MAX_LENGTH], ipStringNew[IP_MAX_LENGTH];
+	char idStringD[22];
+	char fullPath [strlen("../Files/Cookies/D") + strlen(idString) + 2];
+	unsigned counter;
+	time_t tempo;
+	
+	for ( counter = 0; counter < strlen ( fullPath ); counter++ )
+		fullPath[counter] = '\0';
+	strcat ( fullPath, "../Files/Cookies/D" );
+	strcat ( fullPath, idString );
+	for ( counter = 0; counter < strlen ( idStringD ); counter++ )
+		idStringD[counter] = '\0';
+	strcat ( idStringD, "D" );
+	strcat ( idStringD, idString );
+	printf ( "<p hidden> \n" );
+	mlCgiCreateCookie ( "../Files/Cookies/", idStringD, 30 );
+	printf ( "</p>\n" );
+	readCookie ( "../Files/Cookies/D", idString, cookieValue, ipStringNew, NULL );
+	remove ( fullPath );
+	
+	readCookie ( "../Files/Cookies/", idString, cookieValue, ipString, &tempo );
+	
+	/*--------------------------/
+	printf ( "<br>%s", cookieValue );
+	printf ( "<br>%s", cookieValueNew );
+	*--------------------------*/
+	
+	if ( strcmp ( cookieValueNew, cookieValue ) != 0 )
+	{
+		if ( language == portuguese ) 
+		{
+			mlCgiShowErrorPage ( "Error", "Cookie diferente do de login. Se logue novamente.", ""  );
+			printf ( "<div align=\"center\">" );
+			printf ( "<a href=\"geLogout.cgi?geLanguage=portuguese&idString=%s\">Logout</a>", idString );
+			printf ( "</div>" );
+		}
+		else
+		{
+			mlCgiShowErrorPage ( "Error", "Cookie is not the same from the login. Login again.", "" );
+			printf ( "<div align=\"center\">" );
+			printf ( "<a href=\"geLogout.cgi?geLanguage=english&idString=%s\">Logout</a>", idString );
+			printf ( "</div>" );
+		}
+		mlCgiFreeResources ( );
+		exit ( ML_CGI_OK );
+	}
+	
+	if ( strcmp ( ipString, ipStringNew ) != 0 )
+	{
+		if ( language == portuguese ) 
+		{
+			mlCgiShowErrorPage ( "Error", "IP diferente do momento de login. Se logue novamente.", "" );
+			printf ( "<div align=\"center\">" );
+			printf ( "<a href=\"geLogout.cgi?geLanguage=portuguese&idString=%s\">Logout</a>", idString );
+			printf ( "</div>" );
+		}
+		else
+		{
+			mlCgiShowErrorPage ( "Error", "IP is not the same from the moment you logged in. Login again.", ""  );
+			printf ( "<div align=\"center\">" );
+			printf ( "<a href=\"geLogout.cgi?geLanguage=english&idString=%s\">Logout</a>", idString );
+			printf ( "</div>" );
+		}
+		mlCgiFreeResources ( );
+		exit ( ML_CGI_OK );
+	}
+	return OK;
+}
+
+unsigned InviteUser ( char *email, languageType language, char *realName, unsigned group )
+{
+	char link[strlen ( "&realName=" ) + strlen ( realName ) + strlen ( "http://www02.del.ufrj.br/~vitor.schoola/EEL270/GE/CGIs/geShowRealRegisterForm.cgi?geLanguage=portuguese&geEmail=" ) + strlen ( email ) + 1];
+	char textMessage[ 10 + strlen( "\nPara se juntar, clique nesse link: \n" ) + strlen ( link ) + strlen ( "Hello, !\n" ) + strlen ( "Voc&ecirc; ser&aacute; adicionado ao grupo 0" ) + strlen (realName) + 1 ];
+	unsigned counter;
+	for ( counter = 0; counter < strlen ( link ); counter++ )
+		link[counter] = '\0';
+	for ( counter = 0; counter < strlen ( textMessage ); counter++ )
+		textMessage[counter] = '\0';
+	if ( language == portuguese )
+		strcat ( link, "http://www02.del.ufrj.br/~vitor.schoola/EEL270/GE/CGIs/geShowRealRegisterForm.cgi?geLanguage=portuguese&geEmail=" );
+	else
+		strcat ( link, "http://www02.del.ufrj.br/~vitor.schoola/EEL270/GE/CGIs/geShowRealRegisterForm.cgi?geLanguage=english&geEmail=" );
+	strcat ( link, email );
+	strcat ( link, "&realName=" );
+	strcat ( link, realName );
+	if ( language == portuguese )
+	{
+		strcat ( textMessage, "Ola, " );
+		strcat ( textMessage, realName );
+		strcat ( textMessage, "!\n" );
+		strcat ( textMessage, "Para registrar, clique no link: \n" );
+		strcat ( textMessage, link );
+		if ( group == 1 )
+			strcat ( textMessage, "\nVoce sera adicionado ao grupo 1." );
+		if ( group == 2 )
+			strcat ( textMessage, "\nVoce sera adicionado ao grupo 2." );
+		if ( group == 4 )
+			strcat ( textMessage, "\nVoce sera adicionado ao grupo 4" );
+		sendMail ( 	"del.ufrj.br",
+				"smtp.del.ufrj.br",
+				25,
+				"GelaDOS@email.com",
+				email,
+				NULL,
+				NULL,
+				"Foi convidado para se juntar ao GelaDOS!",
+				textMessage, 
+				NULL );
+	}
+	else
+	{
+		strcat ( textMessage, "Hello, " );
+		strcat ( textMessage, realName );
+		strcat ( textMessage, "!\n" );
+		strcat ( textMessage, "To register, click on this link: \n" );
+		strcat ( textMessage, link );
+		if ( group == 1 )
+			strcat ( textMessage, "\nYou will be added on the group 1." );
+		if ( group == 2 )
+			strcat ( textMessage, "\nYou will be added on the group 2." );
+		if ( group == 4 )
+			strcat ( textMessage, "\nYou will be added on the group 4." );
+		sendMail ( 	"del.ufrj.br",
+				"smtp.del.ufrj.br",
+				25,
+				"GelaDOS@email.com",
+				email,
+				NULL,
+				NULL,
+				"You were invited to join GelaDOS!",
+				textMessage, 
+				NULL );
+	}
+	return OK;
+}
+
+unsigned geAddUser ( geUserDataType *userToAdd, char geLanguage[4] )
+{
+	char *passwordPointer, gePassword[PASSWORD_MAX_LENGTH], gePasswordConfirmation[PASSWORD_MAX_LENGTH];
+	unsigned counter;
+	char coddedPassword[256];
+	unsigned firstLine;
+	long long unsigned id;
+	FILE *writing;
+	/*printf ( "|%s|\n|%s|\n|%c|\n", userToAdd->email, userToAdd->name, userToAdd->group + '0' );*/
+	/* Asks for new user's password */
+	if ( strcmp ( geLanguage, "PT" ) == 0 )
+		printf ( "A senha pode ter %u caracteres.\n", PASSWORD_MAX_LENGTH );				
+	else
+		printf ( "The password can be %u characters long.\n", PASSWORD_MAX_LENGTH );				
+	if ( strcmp ( geLanguage, "PT" ) == 0 )
+	{
+		passwordPointer = getpass ( "Qual a senha do novo usuario? " );
+		for ( counter = 0; counter < PASSWORD_MAX_LENGTH; counter++ )
+			gePassword[counter] = passwordPointer[counter];
+		passwordPointer = getpass ( "Por favor, confirme a senha: " );	
+		for ( counter = 0; counter < PASSWORD_MAX_LENGTH; counter++ )
+			gePasswordConfirmation[counter] = passwordPointer[counter];				
+	}
+	else
+	{
+		passwordPointer = getpass ( "What's the new user's pass? " );
+		for ( counter = 0; counter < PASSWORD_MAX_LENGTH; counter++ )
+			gePassword[counter] = passwordPointer[counter];
+		passwordPointer = getpass ( "Please, confirm the password: " );
+		for ( counter = 0; counter < PASSWORD_MAX_LENGTH; counter++ )
+			gePasswordConfirmation[counter] = passwordPointer[counter];		
+	}
+	for ( counter = 0; counter < PASSWORD_MAX_LENGTH; counter++ )
+			passwordPointer[counter] = '\0';
+	
+	if ( strcmp ( gePassword, gePasswordConfirmation ) != 0 )
+		return PASSWORD_DONT_MATCH;
+	
+	if ( strcmp ( geLanguage, "PT" ) == 0 )
+		printf ( "Criando conta...\n" );
+	else
+		printf ( "Creating account...\n" );
+		
+	if ( CodificarSenha ( gePassword, coddedPassword ) != 0 )
+	{
+		return INVALID_PASSWORD;
+	}
+	
+	if ( fileExists ( "Files/", "users" ) == 0 )
+		id = 0;
+	else
+		id = getNextIdToCLI ();
+	
+	if ( fileExists ( "Files/", "users" ) == 0 )
+	{
+		writing = fopen ( "Files/users", "w" );
+		fclose( writing );
+		firstLine = 1;
+	}
+	else
+	{
+		firstLine = 0;
+	}
+	
+	writing = fopen ( "Files/users", "a" );
+	if ( firstLine == 1 )
+		fprintf ( writing, "%020llu;%s;%s;%u;%s;", id, userToAdd->email, coddedPassword, userToAdd->group, userToAdd->name );
+	else
+		fprintf ( writing, "\n%020llu;%s;%s;%u;%s;", id, userToAdd->email, coddedPassword, userToAdd->group, userToAdd->name );
+	fclose ( writing );
+	
+	return OK;
+}
+
+/* $RCSfile: geFunctions.c,v $ */

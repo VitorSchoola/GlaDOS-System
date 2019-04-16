@@ -1,0 +1,1036 @@
+head	1.7;
+access;
+symbols;
+locks
+	vitor.schoola:1.7; strict;
+comment	@# @;
+
+
+1.7
+date	2015.01.11.05.19.46;	author vitor.schoola;	state Exp;
+branches;
+next	1.6;
+
+1.6
+date	2015.01.11.03.35.26;	author vitor.schoola;	state Exp;
+branches;
+next	1.5;
+
+1.5
+date	2015.01.11.03.33.26;	author vitor.schoola;	state Exp;
+branches;
+next	1.4;
+
+1.4
+date	2015.01.11.03.08.51;	author vitor.schoola;	state Exp;
+branches;
+next	1.3;
+
+1.3
+date	2015.01.11.00.38.21;	author vitor.schoola;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2015.01.10.20.09.23;	author vitor.schoola;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2015.01.10.19.16.47;	author vitor.schoola;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.7
+log
+@*** empty log message ***
+@
+text
+@# Universidade Federal do Rio de Janeiro
+# Escola Politecnica
+# Departamento de Eletronica e de Computacao
+# EEL270 - Computacao II - Turma 2014/2
+# Prof. Marcelo Luiz Drumond Lanza
+# Autor: Vitor Gouveia Schoola
+
+# $Author: vitor.schoola $
+# $Date: 2015/01/11 03:08:51 $
+
+
+CC = gcc
+LD = gcc
+
+CFLAGS = -Wall
+LFLAGS = -Wall
+
+#Dependencias (Arquivos)
+#Objetos
+GECGISHOWMAINFORMOBJ =  geError.o geFunctions.o geCrypt.o geCgiShowMainForm.o 
+GECGIHELP = geError.o geFunctions.o geCrypt.o geCgiHelp.o
+GECGILICENSE = geError.o geFunctions.o geCrypt.o geCgiLicense.o
+GECGIREGISTER = geError.o geFunctions.o geCrypt.o geCgiRegister.o
+GECGILOGIN = geError.o geFunctions.o geCrypt.o geCgiLogin.o
+GECGISHOWREQUESTREGISTRATIONFORM = geError.o geFunctions.o geCrypt.o geCgiShowRequestRegistrationForm.o
+GECGILOGOUT = geError.o geFunctions.o geCrypt.o geCgiLogout.o
+GECGIADDUSER = geError.o geFunctions.o geCrypt.o geCgiAddUser.o
+GECGIEXECUTEADDUSER = geError.o geFunctions.o geCrypt.o geCgiExecuteAddUser.o
+GECGISHOWMENU = geError.o geFunctions.o geCrypt.o geCgiShowMenu.o
+GECGIREALREGISTER = geError.o geFunctions.o geCrypt.o geCgiRealRegister.o
+GECGISHOWREALREGISTERFORM = geError.o geFunctions.o geCrypt.o geCgiShowRealRegisterForm.o
+GECGIREMOVEUSER = geError.o geFunctions.o geCrypt.o geCgiRemoveUser.o
+GECGIEXECUTEREMOVEUSER = geError.o geFunctions.o geCrypt.o geCgiExecuteRemoveUser.o
+GECGILISTUSER = geError.o geFunctions.o geCrypt.o geCgiListUser.o
+GECGIEDITUSER = geError.o geFunctions.o geCrypt.o geCgiEditUser.o
+GECGIChosenEDITUSER = geError.o geFunctions.o geCrypt.o geCgiChosenEditUser.o
+GECGIEXECUTEEDITUSER = geError.o geFunctions.o geCrypt.o geCgiExecuteEditUser.o
+GECGISEARCHUSER = geError.o geFunctions.o geCrypt.o geCgiSearchUser.o
+GECGIEXECUTESEARCHUSER = geError.o geFunctions.o geCrypt.o geCgiExecuteSearchUser.o
+GECGICHOSENSEARCHUSER = geError.o geFunctions.o geCrypt.o geCgiChosenSearchUser.o
+GECGICREATETEMPPASSUSER = geError.o geFunctions.o geCrypt.o geCgiCreateTempPassUser.o
+GECGIEXECUTECREATETEMPPASSUSER = geError.o geFunctions.o geCrypt.o geCgiExecuteCreateTempPassUser.o
+GECGIADDBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiAddBrotherhood.o
+GECGIEXECUTEADDBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiExecuteAddBrotherhood.o
+GECGICHANGEBROTHERHOODNAME = geError.o geFunctions.o geCrypt.o geCgiChangeBrotherhoodName.o
+GECGICHOSENEDITBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiChosenEditBrotherhood.o
+GECGIEXECUTEEDITBROTHERHOODNAME = geError.o geFunctions.o geCrypt.o geCgiExecuteEditBrotherhoodName.o
+GECGIREMOVEBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiRemoveBrotherhood.o
+GECGIEXECUTEREMOVEBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiExecuteRemoveBrotherhood.o
+GECGIADDUSERTOBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiAddUserToBrotherhood.o
+GECGIEXECUTEADDUSERTOBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiExecuteAddUserToBrotherhood.o
+GECGIACCEPTREJECTBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiAcceptRejectBrotherhood.o
+GECGIEXECUTEACCEPTREJECTBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiExecuteAcceptRejectBrotherhood.o
+GECGIREMOVEUSERFROMBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiRemoveUserFromBrotherhood.o
+GECGIEXECUTEREMOVEUSERFROMBROTHERHOOD = geError.o geFunctions.o geCrypt.o geCgiExecuteRemoveUserFromBrotherhood.o
+GECGIADDBEER = geError.o geFunctions.o geCrypt.o geCgiAddBeer.o
+GECGIEXECUTEADDBEER = geError.o geFunctions.o geCrypt.o geCgiExecuteAddBeer.o
+GECGILISTBEER = geError.o geFunctions.o geCrypt.o geCgiListBeer.o
+GECGISEARCHBEER = geError.o geFunctions.o geCrypt.o geCgiSearchBeer.o
+GECGICHOSENSEARCHBEER = geError.o geFunctions.o geCrypt.o geCgiChosenSearchBeer.o
+GECGIEXECUTESEARCHBEER = geError.o geFunctions.o geCrypt.o geCgiExecuteSearchBeer.o
+GECGIEVALUATEBEER = geError.o geFunctions.o geCrypt.o geCgiEvaluateBeer.o
+GECGICHOSENEVALUATEBEER = geError.o geFunctions.o geCrypt.o geCgiChosenEvaluateBeer.o
+GECGIEXECUTEEVALUATEBEER = geError.o geFunctions.o geCrypt.o geCgiExecuteEvaluateBeer.o
+GECGICHANGEBEERNAME = geError.o geFunctions.o geCrypt.o geCgiChangeBeerName.o
+GECGIEXECUTECHANGEBEERNAME = geError.o geFunctions.o geCrypt.o geCgiExecuteChangeBeerName.o
+GECGIREMOVEBEER = geError.o geFunctions.o geCrypt.o geCgiRemoveBeer.o
+GECGIEXECUTEREMOVEBEER = geError.o geFunctions.o geCrypt.o geCgiExecuteRemoveBeer.o
+GECGISHOWFORGOTPASSWORDFORM = geError.o geFunctions.o geCrypt.o geCgiShowForgotPasswordForm.o
+GECGIFORGOTPASSWORD = geError.o geFunctions.o geCrypt.o geCgiForgotPassword.o
+GECGIEXECUTEFORGOTPASSWORD = geError.o geFunctions.o geCrypt.o geCgiExecuteForgotPassword.o
+GECGICHANGEPASSWORD = geError.o geFunctions.o geCrypt.o geCgiChangePassword.o
+GECGIEXECUTECHANGEPASSWORD = geError.o geFunctions.o geCrypt.o geCgiExecuteChangePassword.o
+GECGIADDBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiAddBeerType.o
+GECGIEXECUTEADDBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiExecuteAddBeerType.o
+GECGICHANGEBEERTYPENAME = geError.o geFunctions.o geCrypt.o geCgiChangeBeerTypeName.o
+GECGIEXECUTECHANGEBEERTYPENAME = geError.o geFunctions.o geCrypt.o geCgiExecuteChangeBeerTypeName.o
+GECGIREMOVEBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiRemoveBeerType.o
+GECGIEXECUTEREMOVEBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiExecuteRemoveBeerType.o
+GECGILISTBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiListBeerType.o
+GECGISEARCHBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiSearchBeerType.o
+GECGIEXECUTESEARCHBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiExecuteSearchBeerType.o
+GECGICHOSENSEARCHBEERTYPE = geError.o geFunctions.o geCrypt.o geCgiChosenSearchBeerType.o
+GECGIADDBEERTOTYPE = geError.o geFunctions.o geCrypt.o geCgiAddBeerToType.o
+GECGIEXECUTEADDBEERTOTYPE = geError.o geFunctions.o geCrypt.o geCgiExecuteAddBeerToType.o
+GECLI = geError.o geFunctions.o geCrypt.o geCLI.o
+GECLEAN = geError.o geFunctions.o geCrypt.o geClean.o
+
+EXECS = geShowMainForm\
+        geHelp\
+        geLicense\
+        geRegister\
+        geLogin\
+		geShowRequestRegistrationForm\
+		geLogout\
+		geAddUser\
+		geExecuteAddUser\
+		geRealRegister\
+		geShowRealRegisterForm\
+		geShowMenu\
+		geRemoveUser\
+		geExecuteRemoveUser\
+		geListUser\
+		geEditUser\
+		geChosenEditUser\
+		geExecuteEditUser\
+		geSearchUser\
+		geExecuteSearchUser\
+		geChosenSearchUser\
+		geCreateTempPassUser\
+		geExecuteCreateTempPassUser\
+		geAddBrotherhood\
+		geExecuteAddBrotherhood\
+		geChangeBrotherhoodName\
+		geChosenEditBrotherhood\
+		geExecuteEditBrotherhoodName\
+		geRemoveBrotherhood\
+		geExecuteRemoveBrotherhood\
+		geAddUserToBrotherhood\
+		geExecuteAddUserToBrotherhood\
+		geAcceptRejectBrotherhood\
+		geExecuteAcceptRejectBrotherhood\
+		geRemoveUserFromBrotherhood\
+		geExecuteRemoveUserFromBrotherhood\
+		geAddBeer\
+		geExecuteAddBeer\
+		geListBeer\
+		geSearchBeer\
+		geChosenSearchBeer\
+		geExecuteSearchBeer\
+		geEvaluateBeer\
+		geChosenEvaluateBeer\
+		geExecuteEvaluateBeer\
+		geRemoveBeer\
+		geChangeBeerName\
+		geExecuteChangeBeerName\
+		geExecuteRemoveBeer\
+		geShowForgotPasswordForm\
+		geForgotPassword\
+		geExecuteForgotPassword\
+		geChangePassword\
+		geExecuteChangePassword\
+		geAddBeerType\
+		geExecuteAddBeerType\
+		geChangeBeerTypeName\
+		geExecuteChangeBeerTypeName\
+		geRemoveBeerType\
+		geExecuteRemoveBeerType\
+		geListBeerType\
+		geSearchBeerType\
+		geExecuteSearchBeerType\
+		geChosenSearchBeerType\
+		geAddBeerToType\
+		geExecuteAddBeerToType\
+		geCLI\
+		geClean
+
+EXECSCO = geShowMainFormCo\
+        geHelpCo\
+        geLicenseCo\
+        geRegisterCo\
+        geLoginCo\
+		geShowRequestRegistrationFormCo\
+		geLogoutCo\
+		geAddUserCo\
+		geExecuteAddUserCo\
+		geRealRegisterCo\
+		geShowRealRegisterFormCo\
+		geShowMenuCo\
+		geRemoveUserCo\
+		geExecuteRemoveUserCo\
+		geListUserCo\
+		geEditUserCo\
+		geChosenEditUserCo\
+		geExecuteEditUserCo\
+		geSearchUserCo\
+		geExecuteSearchUserCo\
+		geChosenSearchUserCo\
+		geCreateTempPassUserCo\
+		geExecuteCreateTempPassUserCo\
+		geAddBrotherhoodCo\
+		geExecuteAddBrotherhoodCo\
+		geChangeBrotherhoodNameCo\
+		geChosenEditBrotherhoodCo\
+		geExecuteEditBrotherhoodNameCo\
+		geRemoveBrotherhoodCo\
+		geExecuteRemoveBrotherhoodCo\
+		geAddUserToBrotherhoodCo\
+		geExecuteAddUserToBrotherhoodCo\
+		geAcceptRejectBrotherhoodCo\
+		geExecuteAcceptRejectBrotherhoodCo\
+		geRemoveUserFromBrotherhoodCo\
+		geExecuteRemoveUserFromBrotherhoodCo\
+		geAddBeerCo\
+		geExecuteAddBeerCo\
+		geListBeerCo\
+		geSearchBeerCo\
+		geChosenSearchBeerCo\
+		geExecuteSearchBeerCo\
+		geEvaluateBeerCo\
+		geChosenEvaluateBeerCo\
+		geExecuteEvaluateBeerCo\
+		geRemoveBeerCo\
+		geChangeBeerNameCo\
+		geExecuteChangeBeerNameCo\
+		geExecuteRemoveBeerCo\
+		geShowForgotPasswordFormCo\
+		geForgotPasswordCo\
+		geExecuteForgotPasswordCo\
+		geChangePasswordCo\
+		geExecuteChangePasswordCo\
+		geAddBeerTypeCo\
+		geExecuteAddBeerTypeCo\
+		geChangeBeerTypeNameCo\
+		geExecuteChangeBeerTypeNameCo\
+		geRemoveBeerTypeCo\
+		geExecuteRemoveBeerTypeCo\
+		geListBeerTypeCo\
+		geSearchBeerTypeCo\
+		geExecuteSearchBeerTypeCo\
+		geChosenSearchBeerTypeCo\
+		geAddBeerToTypeCo\
+		geExecuteAddBeerToTypeCo\
+		geCLICo\
+		geCleanCo
+
+#Regra Implicita
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+	
+#Comandos
+all: $(EXECS)
+
+#Deleta todos arquivos instalados
+clean: 
+	rm -f *.o
+	rm -f *.cgi
+	rm geCLI
+
+#Instala a bragança toda
+install: 
+	mkdir ../../../../../public/html/EEL270
+	mkdir ../../../../../public/html/EEL270/GE
+	mkdir ../../../../../public/html/EEL270/GE/CGIs
+	mkdir ../../../../../public/html/EEL270/GE/Files
+	mkdir ../../../../../public/html/EEL270/GE/Files/Cookies
+	co -l geCrypt.c geError.c geFunctions.c geConst.h geCrypt.h geError.h geFunctions.h geTypes.h 
+	co -l mlcgi.h sendmail.h
+	cp -f ../HTML/*.html ../../../../../public/html/EEL270/GE/
+	cp -f ../HTML/Files/* ../../../../../public/html/EEL270/GE/Files/
+	make executeinstall
+	../../../../../public/html/EEL270/GE/geCLI -z
+	
+executeinstall: $(EXECSCO)
+	make
+	make clean
+	
+deinstall:
+	rm -rf ../../../../../public/html/EEL270/
+	
+#Compilacao de todos arquivos
+
+geShowMainForm: $(GECGISHOWMAINFORMOBJ)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISHOWMAINFORMOBJ) -L. -lmlcgi -lsendmail -lcrypt
+	mv geShowMainForm geShowMainForm.cgi
+	cp -f geShowMainForm.cgi ../../../../../public/html/EEL270/GE/CGIs/geShowMainForm.cgi
+
+geShowMainFormCo:
+	co -l geCgiShowMainForm.c
+	
+geHelp: $(GECGIHELP)
+	$(LD) $(LFLAGS) -o $@@ -lm $(GECGIHELP) -L. -lmlcgi -lsendmail -lcrypt
+	mv geHelp geHelp.cgi
+	cp -f geHelp.cgi ../../../../../public/html/EEL270/GE/CGIs/geHelp.cgi
+
+geHelpCo:
+	co -l geCgiHelp.c
+	
+geLicense: $(GECGILICENSE)
+	$(LD) $(LFLAGS) -o $@@ -lm $(GECGILICENSE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geLicense geLicense.cgi
+	cp -f geLicense.cgi ../../../../../public/html/EEL270/GE/CGIs/geLicense.cgi
+
+geLicenseCo:
+	co -l geCgiLicense.c
+	
+geLogin: $(GECGILOGIN)
+	$(LD) $(LFLAGS) -o $@@ $(GECGILOGIN) -L. -lmlcgi -lsendmail -lcrypt
+	mv geLogin geLogin.cgi
+	cp -f geLogin.cgi ../../../../../public/html/EEL270/GE/CGIs/geLogin.cgi
+
+geLoginCo: 
+	co -l geCgiLogin.c
+	
+geRegister: $(GECGIREGISTER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREGISTER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRegister geRegister.cgi
+	cp -f geRegister.cgi ../../../../../public/html/EEL270/GE/CGIs/geRegister.cgi
+
+geRegisterCo:
+	co -l geCgiRegister.c
+	
+geShowRequestRegistrationForm: $(GECGISHOWREQUESTREGISTRATIONFORM)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISHOWREQUESTREGISTRATIONFORM) -L. -lmlcgi -lsendmail -lcrypt
+	mv geShowRequestRegistrationForm geShowRequestRegistrationForm.cgi
+	cp -f geShowRequestRegistrationForm.cgi ../../../../../public/html/EEL270/GE/CGIs/geShowRequestRegistrationForm.cgi
+	
+geShowRequestRegistrationFormCo:
+	co -l geCgiShowRequestRegistrationForm.c
+	
+geShowRealRegisterForm: $(GECGISHOWREALREGISTERFORM)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISHOWREALREGISTERFORM) -L. -lmlcgi -lsendmail -lcrypt
+	mv geShowRealRegisterForm geShowRealRegisterForm.cgi
+	cp -f geShowRealRegisterForm.cgi ../../../../../public/html/EEL270/GE/CGIs/geShowRealRegisterForm.cgi
+	
+geShowRealRegisterFormCo:
+	co -l geCgiShowRealRegisterForm.c
+
+geRealRegister: $(GECGIREALREGISTER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREALREGISTER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRealRegister geRealRegister.cgi
+	cp -f geRealRegister.cgi ../../../../../public/html/EEL270/GE/CGIs/geRealRegister.cgi
+	
+geRealRegisterCo:
+	co -l geCgiRealRegister.c
+	
+geLogout: $(GECGILOGOUT)
+	$(LD) $(LFLAGS) -o $@@ $(GECGILOGOUT) -L. -lmlcgi -lsendmail -lcrypt
+	mv geLogout geLogout.cgi
+	cp -f geLogout.cgi ../../../../../public/html/EEL270/GE/CGIs/geLogout.cgi
+
+geLogoutCo: 
+	co -l geCgiLogout.c
+	
+geAddUser: $(GECGIADDUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddUser geAddUser.cgi
+	cp -f geAddUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddUser.cgi
+
+geAddUserCo:
+	co -l geCgiAddUser.c
+	
+geExecuteAddUser: $(GECGIEXECUTEADDUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddUser geExecuteAddUser.cgi
+	cp -f geExecuteAddUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddUser.cgi
+
+geExecuteAddUserCo:
+	co -l geCgiExecuteAddUser.c
+	
+geShowMenu: $(GECGISHOWMENU)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISHOWMENU) -L. -lmlcgi -lsendmail -lcrypt
+	mv geShowMenu geShowMenu.cgi
+	cp -f geShowMenu.cgi ../../../../../public/html/EEL270/GE/CGIs/geShowMenu.cgi
+	
+geShowMenuCo:
+	co -l geCgiShowMenu.c
+	
+geRemoveUser: $(GECGIREMOVEUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREMOVEUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRemoveUser geRemoveUser.cgi
+	cp -f geRemoveUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geRemoveUser.cgi
+
+geRemoveUserCo:
+	co -l geCgiRemoveUser.c
+	
+geExecuteRemoveUser: $(GECGIEXECUTEREMOVEUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEREMOVEUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteRemoveUser geExecuteRemoveUser.cgi
+	cp -f geExecuteRemoveUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteRemoveUser.cgi
+	
+geExecuteRemoveUserCo:
+	co -l geCgiExecuteRemoveUser.c
+	
+geListUser: $(GECGILISTUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGILISTUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geListUser geListUser.cgi
+	cp -f geListUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geListUser.cgi
+	
+geListUserCo:
+	co -l geCgiListUser.c
+	
+geEditUser: $(GECGIEDITUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEDITUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geEditUser geEditUser.cgi
+	cp -f geEditUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geEditUser.cgi
+	
+geEditUserCo:
+	co -l geCgiEditUser.c
+	
+geChosenEditUser: $(GECGIChosenEDITUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIChosenEDITUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenEditUser geChosenEditUser.cgi
+	cp -f geChosenEditUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenEditUser.cgi
+	
+geChosenEditUserCo:
+	co -l geCgiChosenEditUser.c
+	
+geExecuteEditUser: $(GECGIEXECUTEEDITUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEEDITUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteEditUser geExecuteEditUser.cgi
+	cp -f geExecuteEditUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteEditUser.cgi
+
+geExecuteEditUserCo:
+	co -l geCgiExecuteEditUser.c
+	
+geSearchUser: $(GECGISEARCHUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISEARCHUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geSearchUser geSearchUser.cgi
+	cp -f geSearchUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geSearchUser.cgi
+	
+geSearchUserCo:
+	co -l geCgiSearchUser.c
+	
+geExecuteSearchUser: $(GECGIEXECUTESEARCHUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTESEARCHUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteSearchUser geExecuteSearchUser.cgi
+	cp -f geExecuteSearchUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteSearchUser.cgi
+	
+geExecuteSearchUserCo:
+	co -l geCgiExecuteSearchUser.c
+	
+geChosenSearchUser: $(GECGICHOSENSEARCHUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHOSENSEARCHUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenSearchUser geChosenSearchUser.cgi
+	cp -f geChosenSearchUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenSearchUser.cgi
+	
+geChosenSearchUserCo:
+	co -l geCgiChosenSearchUser.c
+	
+geCreateTempPassUser: $(GECGICREATETEMPPASSUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICREATETEMPPASSUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geCreateTempPassUser geCreateTempPassUser.cgi
+	cp -f geCreateTempPassUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geCreateTempPassUser.cgi
+	
+geCreateTempPassUserCo:
+	co -l geCgiCreateTempPassUser.c
+	
+geExecuteCreateTempPassUser: $(GECGIEXECUTECREATETEMPPASSUSER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTECREATETEMPPASSUSER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteCreateTempPassUser geExecuteCreateTempPassUser.cgi
+	cp -f geExecuteCreateTempPassUser.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteCreateTempPassUser.cgi
+	
+geExecuteCreateTempPassUserCo:
+	co -l geCgiExecuteCreateTempPassUser.c
+	
+geAddBrotherhood: $(GECGIADDBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddBrotherhood geAddBrotherhood.cgi
+	cp -f geAddBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddBrotherhood.cgi
+	
+geAddBrotherhoodCo:
+	co -l geCgiAddBrotherhood.c
+	
+geExecuteAddBrotherhood: $(GECGIEXECUTEADDBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddBrotherhood geExecuteAddBrotherhood.cgi
+	cp -f geExecuteAddBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddBrotherhood.cgi
+
+geExecuteAddBrotherhoodCo:
+	co -l geCgiExecuteAddBrotherhood.c
+
+geChangeBrotherhoodName: $(GECGICHANGEBROTHERHOODNAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHANGEBROTHERHOODNAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChangeBrotherhoodName geChangeBrotherhoodName.cgi
+	cp -f geChangeBrotherhoodName.cgi ../../../../../public/html/EEL270/GE/CGIs/geChangeBrotherhoodName.cgi	
+	
+geChangeBrotherhoodNameCo:
+	co -l geCgiChangeBrotherhoodName.c
+	
+geChosenEditBrotherhood: $(GECGICHOSENEDITBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHOSENEDITBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenEditBrotherhood geChosenEditBrotherhood.cgi
+	cp -f geChosenEditBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenEditBrotherhood.cgi	
+	
+geChosenEditBrotherhoodCo:
+	co -l geCgiChosenEditBrotherhood.c
+	
+geExecuteEditBrotherhoodName: $(GECGIEXECUTEEDITBROTHERHOODNAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEEDITBROTHERHOODNAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteEditBrotherhoodName geExecuteEditBrotherhoodName.cgi
+	cp -f geExecuteEditBrotherhoodName.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteEditBrotherhoodName.cgi	
+	
+geExecuteEditBrotherhoodNameCo:
+	co -l geCgiExecuteEditBrotherhoodName.c
+	
+geRemoveBrotherhood: $(GECGIREMOVEBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREMOVEBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRemoveBrotherhood geRemoveBrotherhood.cgi
+	cp -f geRemoveBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geRemoveBrotherhood.cgi	
+	
+geRemoveBrotherhoodCo:
+	co -l geCgiRemoveBrotherhood.c
+	
+geExecuteRemoveBrotherhood: $(GECGIEXECUTEREMOVEBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEREMOVEBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteRemoveBrotherhood geExecuteRemoveBrotherhood.cgi
+	cp -f geExecuteRemoveBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteRemoveBrotherhood.cgi
+	
+geExecuteRemoveBrotherhoodCo:
+	co -l geCgiExecuteRemoveBrotherhood.c
+	
+geAddUserToBrotherhood: $(GECGIADDUSERTOBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDUSERTOBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddUserToBrotherhood geAddUserToBrotherhood.cgi
+	cp -f geAddUserToBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddUserToBrotherhood.cgi	
+
+geAddUserToBrotherhoodCo:
+	co -l geCgiAddUserToBrotherhood.c
+	
+geExecuteAddUserToBrotherhood: $(GECGIEXECUTEADDUSERTOBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDUSERTOBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddUserToBrotherhood geExecuteAddUserToBrotherhood.cgi
+	cp -f geExecuteAddUserToBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddUserToBrotherhood.cgi
+	
+geExecuteAddUserToBrotherhoodCo:
+	co -l geCgiExecuteAddUserToBrotherhood.c
+	
+geAcceptRejectBrotherhood: $(GECGIACCEPTREJECTBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIACCEPTREJECTBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAcceptRejectBrotherhood geAcceptRejectBrotherhood.cgi
+	cp -f geAcceptRejectBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geAcceptRejectBrotherhood.cgi	
+	
+geAcceptRejectBrotherhoodCo:
+	co -l geCgiAcceptRejectBrotherhood.c
+	
+geExecuteAcceptRejectBrotherhood: $(GECGIEXECUTEACCEPTREJECTBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEACCEPTREJECTBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAcceptRejectBrotherhood geExecuteAcceptRejectBrotherhood.cgi
+	cp -f geExecuteAcceptRejectBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAcceptRejectBrotherhood.cgi
+	
+geExecuteAcceptRejectBrotherhoodCo:
+	co -l geCgiExecuteAcceptRejectBrotherhood.c
+	
+geRemoveUserFromBrotherhood: $(GECGIREMOVEUSERFROMBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREMOVEUSERFROMBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRemoveUserFromBrotherhood geRemoveUserFromBrotherhood.cgi
+	cp -f geRemoveUserFromBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geRemoveUserFromBrotherhood.cgi
+	
+geRemoveUserFromBrotherhoodCo:
+	co -l geCgiRemoveUserFromBrotherhood.c
+	
+geExecuteRemoveUserFromBrotherhood: $(GECGIEXECUTEREMOVEUSERFROMBROTHERHOOD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEREMOVEUSERFROMBROTHERHOOD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteRemoveUserFromBrotherhood geExecuteRemoveUserFromBrotherhood.cgi
+	cp -f geExecuteRemoveUserFromBrotherhood.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteRemoveUserFromBrotherhood.cgi
+	
+geExecuteRemoveUserFromBrotherhoodCo:
+	co -l geCgiExecuteRemoveUserFromBrotherhood.c
+	
+geAddBeer: $(GECGIADDBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddBeer geAddBeer.cgi
+	cp -f geAddBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddBeer.cgi
+	
+geAddBeerCo:
+	co -l geCgiAddBeer.c
+	
+geExecuteAddBeer: $(GECGIEXECUTEADDBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddBeer geExecuteAddBeer.cgi
+	cp -f geExecuteAddBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddBeer.cgi
+	
+geExecuteAddBeerCo:
+	co -l geCgiExecuteAddBeer.c
+	
+geListBeer: $(GECGILISTBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGILISTBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geListBeer geListBeer.cgi
+	cp -f geListBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geListBeer.cgi
+	
+geListBeerCo:
+	co -l geCgiListBeer.c
+	
+geSearchBeer: $(GECGISEARCHBEER)  
+	$(LD) $(LFLAGS) -o $@@ $(GECGISEARCHBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geSearchBeer geSearchBeer.cgi
+	cp -f geSearchBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geSearchBeer.cgi
+	
+geSearchBeerCo:
+	co -l geCgiSearchBeer.c
+
+geChosenSearchBeer: $(GECGICHOSENSEARCHBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHOSENSEARCHBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenSearchBeer geChosenSearchBeer.cgi
+	cp -f geChosenSearchBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenSearchBeer.cgi
+	
+geChosenSearchBeerCo:
+	co -l geCgiChosenSearchBeer.c
+
+geExecuteSearchBeer: $(GECGIEXECUTESEARCHBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTESEARCHBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteSearchBeer geExecuteSearchBeer.cgi
+	cp -f geExecuteSearchBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteSearchBeer.cgi
+	
+geExecuteSearchBeerCo:
+	co -l geCgiExecuteSearchBeer.c
+	
+geEvaluateBeer: $(GECGIEVALUATEBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEVALUATEBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geEvaluateBeer geEvaluateBeer.cgi
+	cp -f geEvaluateBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geEvaluateBeer.cgi	
+	
+geEvaluateBeerCo:
+	co -l geCgiEvaluateBeer.c
+	
+geChosenEvaluateBeer: $(GECGICHOSENEVALUATEBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHOSENEVALUATEBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenEvaluateBeer geChosenEvaluateBeer.cgi
+	cp -f geChosenEvaluateBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenEvaluateBeer.cgi	
+	
+geChosenEvaluateBeerCo:
+	co -l geCgiChosenEvaluateBeer.c
+	
+geExecuteEvaluateBeer: $(GECGIEXECUTEEVALUATEBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEEVALUATEBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteEvaluateBeer geExecuteEvaluateBeer.cgi
+	cp -f geExecuteEvaluateBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteEvaluateBeer.cgi	
+	
+geExecuteEvaluateBeerCo:
+	co -l geCgiExecuteEvaluateBeer.c
+	
+geRemoveBeer: $(GECGIREMOVEBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREMOVEBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRemoveBeer geRemoveBeer.cgi
+	cp -f geRemoveBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geRemoveBeer.cgi	
+	
+geRemoveBeerCo:
+	co -l geCgiRemoveBeer.c
+		
+geExecuteRemoveBeer: $(GECGIEXECUTEREMOVEBEER)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEREMOVEBEER) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteRemoveBeer geExecuteRemoveBeer.cgi
+	cp -f geExecuteRemoveBeer.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteRemoveBeer.cgi	
+	
+geExecuteRemoveBeerCo:
+	co -l geCgiExecuteRemoveBeer.c
+	
+geChangeBeerName: $(GECGICHANGEBEERNAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHANGEBEERNAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChangeBeerName geChangeBeerName.cgi
+	cp -f geChangeBeerName.cgi ../../../../../public/html/EEL270/GE/CGIs/geChangeBeerName.cgi	
+	
+geChangeBeerNameCo:
+	co -l geCgiChangeBeerName.c
+	
+geExecuteChangeBeerName: $(GECGIEXECUTECHANGEBEERNAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTECHANGEBEERNAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteChangeBeerName geExecuteChangeBeerName.cgi
+	cp -f geExecuteChangeBeerName.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteChangeBeerName.cgi	
+	
+geExecuteChangeBeerNameCo:
+	co -l geCgiExecuteChangeBeerName.c
+	
+geShowForgotPasswordForm: $(GECGISHOWFORGOTPASSWORDFORM)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISHOWFORGOTPASSWORDFORM) -L. -lmlcgi -lsendmail -lcrypt
+	mv geShowForgotPasswordForm geShowForgotPasswordForm.cgi
+	cp -f geShowForgotPasswordForm.cgi ../../../../../public/html/EEL270/GE/CGIs/geShowForgotPasswordForm.cgi	
+	
+geShowForgotPasswordFormCo:
+	co -l geCgiShowForgotPasswordForm.c
+	
+geForgotPassword: $(GECGIFORGOTPASSWORD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIFORGOTPASSWORD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geForgotPassword geForgotPassword.cgi
+	cp -f geForgotPassword.cgi ../../../../../public/html/EEL270/GE/CGIs/geForgotPassword.cgi
+	
+geForgotPasswordCo:
+	co -l geCgiForgotPassword.c
+		
+geExecuteForgotPassword: $(GECGIEXECUTEFORGOTPASSWORD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEFORGOTPASSWORD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteForgotPassword geExecuteForgotPassword.cgi
+	cp -f geExecuteForgotPassword.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteForgotPassword.cgi
+	
+geExecuteForgotPasswordCo:
+	co -l geCgiExecuteForgotPassword.c
+			
+geChangePassword: $(GECGICHANGEPASSWORD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHANGEPASSWORD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChangePassword geChangePassword.cgi
+	cp -f geChangePassword.cgi ../../../../../public/html/EEL270/GE/CGIs/geChangePassword.cgi
+	
+geChangePasswordCo:
+	co -l geCgiChangePassword.c
+			
+geExecuteChangePassword: $(GECGIEXECUTECHANGEPASSWORD)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTECHANGEPASSWORD) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteChangePassword geExecuteChangePassword.cgi
+	cp -f geExecuteChangePassword.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteChangePassword.cgi	
+	
+geExecuteChangePasswordCo:
+	co -l geCgiExecuteChangePassword.c
+	
+geAddBeerType: $(GECGIADDBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddBeerType geAddBeerType.cgi
+	cp -f geAddBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddBeerType.cgi	
+	
+geAddBeerTypeCo:
+	co -l geCgiAddBeerType.c
+	
+geExecuteAddBeerType: $(GECGIEXECUTEADDBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddBeerType geExecuteAddBeerType.cgi
+	cp -f geExecuteAddBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddBeerType.cgi
+	
+geExecuteAddBeerTypeCo:
+	co -l geCgiExecuteAddBeerType.c
+		
+geChangeBeerTypeName: $(GECGICHANGEBEERTYPENAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHANGEBEERTYPENAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChangeBeerTypeName geChangeBeerTypeName.cgi
+	cp -f geChangeBeerTypeName.cgi ../../../../../public/html/EEL270/GE/CGIs/geChangeBeerTypeName.cgi
+	
+geChangeBeerTypeNameCo:
+	co -l geCgiChangeBeerTypeName.c
+			
+geExecuteChangeBeerTypeName: $(GECGIEXECUTECHANGEBEERTYPENAME)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTECHANGEBEERTYPENAME) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteChangeBeerTypeName geExecuteChangeBeerTypeName.cgi
+	cp -f geExecuteChangeBeerTypeName.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteChangeBeerTypeName.cgi
+	
+geExecuteChangeBeerTypeNameCo:
+	co -l geCgiExecuteChangeBeerTypeName.c
+				
+geRemoveBeerType: $(GECGIREMOVEBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIREMOVEBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geRemoveBeerType geRemoveBeerType.cgi
+	cp -f geRemoveBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geRemoveBeerType.cgi
+
+geRemoveBeerTypeCo:
+	co -l geCgiRemoveBeerType.c
+	
+geExecuteRemoveBeerType: $(GECGIEXECUTEREMOVEBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEREMOVEBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteRemoveBeerType geExecuteRemoveBeerType.cgi
+	cp -f geExecuteRemoveBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteRemoveBeerType.cgi
+	
+geExecuteRemoveBeerTypeCo:
+	co -l geCgiExecuteRemoveBeerType.c
+						
+geListBeerType: $(GECGILISTBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGILISTBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geListBeerType geListBeerType.cgi
+	cp -f geListBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geListBeerType.cgi
+	
+geListBeerTypeCo:
+	co -l geCgiListBeerType.c
+							
+geSearchBeerType: $(GECGISEARCHBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGISEARCHBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geSearchBeerType geSearchBeerType.cgi
+	cp -f geSearchBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geSearchBeerType.cgi
+	
+geSearchBeerTypeCo:
+	co -l geCgiSearchBeerType.c
+							
+geExecuteSearchBeerType: $(GECGIEXECUTESEARCHBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTESEARCHBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteSearchBeerType geExecuteSearchBeerType.cgi
+	cp -f geExecuteSearchBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteSearchBeerType.cgi
+	
+geExecuteSearchBeerTypeCo:
+	co -l geCgiExecuteSearchBeerType.c
+							
+geChosenSearchBeerType: $(GECGICHOSENSEARCHBEERTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGICHOSENSEARCHBEERTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geChosenSearchBeerType geChosenSearchBeerType.cgi
+	cp -f geChosenSearchBeerType.cgi ../../../../../public/html/EEL270/GE/CGIs/geChosenSearchBeerType.cgi
+	
+geChosenSearchBeerTypeCo:
+	co -l geCgiChosenSearchBeerType.c
+								
+geAddBeerToType: $(GECGIADDBEERTOTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIADDBEERTOTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geAddBeerToType geAddBeerToType.cgi
+	cp -f geAddBeerToType.cgi ../../../../../public/html/EEL270/GE/CGIs/geAddBeerToType.cgi
+	
+geAddBeerToTypeCo:
+	co -l geCgiAddBeerToType.c
+								
+geExecuteAddBeerToType: $(GECGIEXECUTEADDBEERTOTYPE)
+	$(LD) $(LFLAGS) -o $@@ $(GECGIEXECUTEADDBEERTOTYPE) -L. -lmlcgi -lsendmail -lcrypt
+	mv geExecuteAddBeerToType geExecuteAddBeerToType.cgi
+	cp -f geExecuteAddBeerToType.cgi ../../../../../public/html/EEL270/GE/CGIs/geExecuteAddBeerToType.cgi
+	
+geExecuteAddBeerToTypeCo:
+	co -l geCgiExecuteAddBeerToType.c
+	
+geCLI: $(GECLI)
+	$(LD) $(LFLAGS) -o $@@ $(GECLI) -L. -lmlcgi -lsendmail -lcrypt
+	cp -f geCLI ../../../../../public/html/EEL270/GE/geCLI
+	
+geCLICo: 
+	co -l geCLI.c
+		
+geClean: $(GECLEAN)
+	$(LD) $(LFLAGS) -o $@@ $(GECLEAN) -L. -lmlcgi -lsendmail -lcrypt
+	cp -f geClean ../../../../../public/html/EEL270/GE/geClean
+	
+geCleanCo: 
+	co -l geClean.c
+	
+############# Para adicionar novo coloque:###############
+# Objetos usados para o arquivo na aba #Objetos		#
+# Nome desejado para o arquivo em #NomeDosExecutaveis	#
+# Comando para compilar. 				#
+# Base:							#
+# NomeDoExecutavel: $(ObjetoDoExecutavel)		#
+# {Tab} $(LD) $(LFLAGS) -o $@@ $(ObjetoDoExecutavel)	#
+#########################################################
+
+# $RCSfile: Makefile,v $
+@
+
+
+1.6
+log
+@*** empty log message ***
+@
+text
+@d87 1
+d155 2
+a156 1
+		geCLI
+d224 2
+a225 1
+		geCLICo
+d252 1
+a252 2
+	cd ../../../../../public/html/EEL270/GE/
+	./geCLI -z
+d797 7
+@
+
+
+1.5
+log
+@*** empty log message ***
+@
+text
+@d235 1
+@
+
+
+1.4
+log
+@*** empty log message ***
+@
+text
+@d9 1
+a9 1
+# $Date: 2015/01/11 00:38:21 $
+d248 2
+@
+
+
+1.3
+log
+@*** empty log message ***
+@
+text
+@d9 1
+a9 1
+# $Date: 2015/01/10 20:09:23 $
+d254 1
+a254 2
+	rm -f ../../../../../public/html/EEL270/GE/Files/*
+	rm -f ../../../../../public/html/EEL270/GE/CGIs/*
+d788 1
+a788 1
+	cp -f geCLI ../../../../../public/html/EEL270/GE/CGIs/geCLI
+@
+
+
+1.2
+log
+@*** empty log message ***
+@
+text
+@d9 1
+a9 1
+# $Date: 2015/01/10 19:16:47 $
+d86 1
+d153 2
+a154 1
+		geExecuteAddBeerToType
+d221 2
+a222 1
+		geExecuteAddBeerToTypeCo
+d251 1
+d787 7
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d9 1
+a9 1
+# $Date: 2014/11/06 15:55:38 $
+a86 1
+
+d154 66
+d234 13
+a246 1
+install: $(EXECS)
+a247 1
+	cp -f ../HTML/Files/* ../../../../../public/html/EEL270/GE/Files
+d260 3
+d268 3
+d276 3
+d284 3
+d292 3
+d300 3
+d307 3
+d316 3
+d323 3
+d331 3
+d339 3
+d348 3
+d355 3
+d364 3
+d372 3
+d380 3
+d388 3
+d395 3
+d404 3
+d412 3
+d420 3
+d428 3
+d436 3
+d444 3
+d452 3
+d460 3
+d468 3
+d476 3
+d484 3
+d492 3
+d499 3
+d508 3
+d516 3
+d524 3
+d532 3
+d540 3
+d548 3
+d556 3
+d564 4
+a567 1
+geSearchBeer: $(GECGISEARCHBEER)
+d571 3
+d579 3
+d588 3
+d596 3
+d604 3
+d612 3
+d619 3
+d628 3
+d636 3
+d644 3
+d652 3
+d659 3
+d667 3
+d675 3
+d684 3
+d692 3
+d699 3
+d707 3
+d715 3
+d723 4
+a726 1
+					
+d731 3
+d739 3
+d747 3
+d755 3
+d763 3
+d771 3
+d780 3
+@

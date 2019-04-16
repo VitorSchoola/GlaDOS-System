@@ -1,0 +1,56 @@
+head	1.1;
+access;
+symbols;
+locks
+	vitor.schoola:1.1; strict;
+comment	@ * @;
+
+
+1.1
+date	2015.01.10.19.16.11;	author vitor.schoola;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@/*Escola Politecnica
+ * Departamento de Eletronica e de Computacao
+ * EEL270 - Computacao II - Turma: 2014/2
+ * Prof. Marcelo Luiz Drumond Lanza
+ *
+ * $Author$
+ * $Date$
+ * $Log$
+ *
+ */
+
+#ifndef _GEERROR_
+#define _GEERROR_              "@@(#)geError.h $Revision$"
+
+#include "geError.h"
+#include "geConst.h"
+
+char *errorMessages[NUMBER_OF_LANGUAGES][NUMBER_OF_ERRORS] = 
+{
+{	
+	"OK",
+	"Couldn't reatrieve language."
+},
+{
+	"OK.",
+	"Foi impossível obter a língua."
+}	
+};
+
+#endif
+
+/* $RCSfile$ */
+@
